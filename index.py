@@ -199,27 +199,29 @@ sneakers = [
 ]
 
 # HOME
-@app.get("/")
+@app.get("/api")
 def home():
     return {
         "message": "Welcome to the Simple Sneaker API!",
         "endpoints": [
-            "/sneakers",
-            "/sneakers/{id}",
-            "/sneakers/search"
+            "/api/sneakers",
+            "/api/sneakers/{id}",
+            "/api/sneakers/search"
         ]
     }
 
+
 # GET ALL SNEAKERS
-@app.get("/sneakers")
+@app.get("/api/sneakers")
 def get_sneakers():
     return {
         "count": len(sneakers),
         "sneakers": sneakers
     }
 
+
 # GET ONE SNEAKER
-@app.get("/sneakers/{sneaker_id}")
+@app.get("/api/sneakers/{sneaker_id}")
 def get_sneaker(sneaker_id: int):
     for sneaker in sneakers:
         if sneaker["id"] == sneaker_id:
@@ -230,11 +232,14 @@ def get_sneaker(sneaker_id: int):
         detail="Sneaker not found."
     )
 
+
 # SEARCH SNEAKERS
-@app.get("/sneakers/search")
+@app.get("/api/sneakers/search")
 def search_sneakers(q: str = Query(..., min_length=1)):
     q = q.lower()
+
     results = []
+
     for sneaker in sneakers:
         searchable_text = (
             f"{sneaker['brand']} "
