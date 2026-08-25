@@ -2,94 +2,257 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f4f4f4;
-    color: #222;
+:root {
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --text: #111111;
+    --muted: #777;
+    --accent: #ff3b30;
+    --accent-dark: #d92d26;
+    --dark: #111111;
+    --border: #e8e8e8;
 }
 
+body {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* Header */
 header {
-    background: #222;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #050505, #1c1c1c);
     color: white;
     text-align: center;
-    padding: 40px 20px;
+    padding: 70px 20px;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--accent);
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.25;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 header h1 {
-    margin: 0;
+    position: relative;
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -2px;
 }
 
+header p {
+    position: relative;
+    margin: 0;
+    color: #bbb;
+    font-size: 1.05rem;
+}
+
+/* Main */
 main {
-    max-width: 900px;
-    margin: 40px auto;
+    max-width: 1100px;
+    margin: 45px auto;
     padding: 0 20px;
 }
 
+/* Search */
 .search {
     display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
+    gap: 12px;
+    margin-bottom: 35px;
+    background: white;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
 }
 
 .search input {
     flex: 1;
-    padding: 12px;
+    padding: 14px 16px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+}
+
+.search input::placeholder {
+    color: #999;
 }
 
 button {
-    padding: 12px 18px;
+    padding: 13px 22px;
     border: none;
-    border-radius: 5px;
-    background: #e63946;
+    border-radius: 9px;
+    background: var(--accent);
     color: white;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 button:hover {
-    background: #c92f3b;
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(230, 57, 70, 0.25);
+}
+
+button:active {
+    transform: translateY(0);
 }
 
 button.secondary {
-    background: #555;
+    background: #222;
 }
 
+button.secondary:hover {
+    background: #000;
+}
+
+/* Sneaker Grid */
 .sneaker-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
 }
 
+/* Sneaker Card */
 .sneaker-card {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
+    background: var(--card);
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
+.sneaker-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--accent),
+        #ff7a70
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.sneaker-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.sneaker-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Card Content */
 .sneaker-card h3 {
-    margin-top: 0;
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+.sneaker-brand {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
 }
 
 .sneaker-year {
-    color: #e63946;
-    font-weight: bold;
+    display: inline-block;
+    color: var(--accent);
+    background: #fff0ef;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
 }
 
 .sneaker-colorway {
-    color: #666;
+    margin: 14px 0;
+    color: #555;
+    font-size: 0.95rem;
 }
 
+.sneaker-description {
+    color: #777;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.sneaker-price {
+    margin-top: 18px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #111;
+}
+
+/* Card Button */
 .sneaker-card button {
-    margin-top: 10px;
+    margin-top: 15px;
     width: 100%;
 }
 
+/* Footer */
 footer {
     text-align: center;
-    padding: 30px;
-    color: #777;
+    padding: 45px 20px;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    header {
+        padding: 50px 20px;
+    }
+
+    main {
+        margin: 25px auto;
+    }
+
+    .search {
+        flex-direction: column;
+        padding: 12px;
+    }
+
+    .search input {
+        width: 100%;
+    }
+
+    .search button {
+        width: 100%;
+    }
+
+    .sneaker-list {
+        grid-template-columns: 1fr;
+    }
+
+    .sneaker-card {
+        padding: 20px;
+    }
 }
